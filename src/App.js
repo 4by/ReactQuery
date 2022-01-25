@@ -1,5 +1,5 @@
 import './App.css';
-import Characters from './Components/Characters';
+import Characters from './Characters';
 import { QueryClientProvider, QueryClient } from 'react-query'
 
 
