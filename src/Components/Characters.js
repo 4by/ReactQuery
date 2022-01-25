@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-
+import { useQuery } from 'react-query'
 
 export default function Characters() {
 
-    const [chars, setChars] = useState([])
-
-    const fetchCharacters = async () => {
+    const fetchChars = async () => {
 
         axios({
             method: 'get',
             url: 'https://rickandmortyapi.com/api/character',
             responseType: 'json'
         })
-            .then(resp => setChars(resp.data.results))
-
-
+            .then(data => { return data })
     }
 
-    useEffect(() => fetchCharacters(), [])
+
+    const { data, status } = useQuery('chars', fetchChars)
+
+    if (status === 'loading') return <div>loading...</div>
+
+    if (status === 'error') return <div>Error</div>
+
+
 
     return (
         <div>
-            {chars.map((char,i) => (
-                <div key={i}> {char.name} </div>
-            ))}
+            {console.log(fetchChars())}
+            {/* {data.map((char, i) => (<div key={i}> {char.name} </div>))} */}
         </div >
     )
 }
