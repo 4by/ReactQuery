@@ -2,12 +2,12 @@ import './App.css';
 import Characters from './Components/Characters';
 import { QueryClientProvider, QueryClient } from 'react-query'
 
-const queryClient = new QueryClient()
 
 function App() {
+ 
   return (
     <div className="App">
-      <QueryClientProvider client = {queryClient}>
+      <QueryClientProvider client = {new QueryClient()}>
         <Characters />
       </QueryClientProvider>
     </div>
