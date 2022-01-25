@@ -4,14 +4,14 @@ import { useQuery } from 'react-query'
 
 export default function Characters() {
 
-    const fetchChars = async () => {
+    const fetchChars = () => {
 
-        axios({
+      return axios({
             method: 'get',
             url: 'https://rickandmortyapi.com/api/character',
             responseType: 'json'
         })
-            .then(data => { return data })
+            .then(resp => resp.data.results)
     }
 
 
@@ -21,12 +21,9 @@ export default function Characters() {
 
     if (status === 'error') return <div>Error</div>
 
-
-
     return (
         <div>
-            {console.log(fetchChars())}
-            {/* {data.map((char, i) => (<div key={i}> {char.name} </div>))} */}
+            {data.map((char, i) => (<div key={i}> {char.name} </div>))}
         </div >
     )
 }
