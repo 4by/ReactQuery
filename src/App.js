@@ -1,3 +1,4 @@
+import './App.css';
 import Characters from './Characters';
 import { QueryClientProvider, QueryClient } from 'react-query'
 
