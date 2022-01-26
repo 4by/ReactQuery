@@ -1,13 +1,14 @@
-import Characters from './Characters';
+import UseQuery from './useQuery';
+import UseMutate from './useMutate';
 import { QueryClientProvider, QueryClient } from 'react-query'
-
 
 function App() {
  
   return (
     <div className="App">
       <QueryClientProvider client = {new QueryClient()}>
-        <Characters />
+        <UseQuery />
+        <UseMutate />
       </QueryClientProvider>
     </div>
   )

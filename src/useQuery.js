@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
-import axios from 'axios'
 import { useQuery } from 'react-query'
+import { queryGetFunc } from './axios'
 
-const getLink = 'https://rickandmortyapi.com/api/'
 
 
-export default function Characters() {
+export default () => {
 
     const [pageState, setPageState] = useState(1)
 
-    // query-функция, которая должна возвращать данные для обработки
-    const queryFunc = async ({ queryKey }) => {
-        const resp = await axios({
-            method: 'get',
-            url: `${getLink}${queryKey[0]}?page=${queryKey[1]}`,
-            responseType: 'json'
-        });
-        return resp.data;
-    }
     //аргументы в query-функцию
     const queryArgs = ['character', pageState]
     //конфигурации самого query-запроса
@@ -29,7 +19,7 @@ export default function Characters() {
 
     //isPreviousData это поле, содержащее информацию о том загружается ли в данный момент запрос
     // из предыдущих данных (keepPreviousData) или нет (уже загрузился или вообще не пытался)
-    const { data, status, isPreviousData } = useQuery(queryArgs, queryFunc, queryOpts)
+    const { data, status, error, isPreviousData } = useQuery(queryArgs, queryGetFunc, queryOpts)
 
     //данные с useQuery обновляются в живом режиме
     if (isPreviousData) return <div>loading from cache...</div>
@@ -38,6 +28,10 @@ export default function Characters() {
 
     return (
         <>
+
+            <h1>{status === 'error' ? error.message : status}</h1>
+
+
             {data.results.map((char, i) => (<div key={i}> {char.name} </div>))}
 
             <button
